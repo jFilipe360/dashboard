@@ -60,7 +60,7 @@
                 <div class="info-box card-primary card-outline">
                     <div class="col-sm text-center">
                         <a href="{{ route('live', ['line', $team->id]) }}" class="btn btn-app">
-                            <i class="fas fa-sync-alt"></i> Gráfico em Tempo Real
+                            <i class="fas fa-sync-alt"></i> Gráfico Real-Time
                         </a>
                     </div>
                     <div class="col-sm text-center">
@@ -113,6 +113,22 @@
                 </div>
             </div>
         </div>
+
+        {{-- Botão para controlar a frequência com que um sensor gera dados --}}
+{{--  
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-gears"></i>Controlar Frequência de Dados</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <a href="{{ route('show-interval-form') }}" class="btn btn-primary">
+                        Update Interval <i class="fas fa-arrow-circle-right"></i>
+                    </a> 
+            </div>
+        </div> --}}
+
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">
@@ -159,6 +175,7 @@
                                     <th>Parâmetro</th>
                                     <th>Valor Min.</th>
                                     <th>Valor Max.</th>
+                                    <th>Downtime</th>
                                     <th>Ativo</th>
                                     @if(Auth::user()->isOwner($team)) <th>Opções</th> @endif
                                 </tr>
@@ -172,6 +189,7 @@
                                         <td>{{ $alert->param->param }}</td>
                                         <td>{{ $alert->min }}</td>
                                         <td>{{ $alert->max }}</td>
+                                        <td>{{ $alert->downtime}}</td>
                                         <td>
                                         @if($alert->enabled)
                                             <span class="badge badge-success">Sim</span> 
@@ -212,6 +230,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">

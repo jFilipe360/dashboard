@@ -14,6 +14,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminAlertController;
 
 use App\Http\Controllers\Auth\RegisterController;
+
+use App\Http\Controllers\SensorController;
+
+use PhpMqtt\Client\Facades\MQTT;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,6 +114,17 @@ Route::get('definicoes', [ProfileController::class, 'index'])->name('profile.def
 // update password and profile
 Route::patch('definicoes/password', [ProfileController::class, 'passwordUpdate'])->name('profile.password');
 Route::patch('definicoes/perfil', [ProfileController::class, 'profileUpdate'])->name('profile.update');
+
+// ============================== CONTROL SENSOR ==============================
+
+//routes for sensor interval
+Route::get('updateinterval', [SensorController::class, 'showForm'])->name('show-interval-form');
+Route::post('updateinterval', [SensorController::class, 'updateInterval'])->name('update-interval');
+
+
+//routes for flow rate control
+Route::get('updateflow', [SensorController::class, 'showFlowForm'])->name('show-flow-form');
+Route::post('updateflow', [SensorController::class, 'updateflow'])->name('update-flow');
 
 // ============================== ADMIN ==============================
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){

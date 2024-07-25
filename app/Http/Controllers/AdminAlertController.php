@@ -79,6 +79,7 @@ class AdminAlertController extends Controller
             'name' => 'required|string|min:3|max:60',
             'min' => 'required|numeric|different:max',
             'max' => 'required|numeric|gt:min',
+            'downtime' => 'required|integer|max:1440',
             'param' => 'required|integer'
         ]);
 
@@ -88,6 +89,7 @@ class AdminAlertController extends Controller
         $alert->name = $request->name;
         $alert->min = floatval($request->min);
         $alert->max = floatval($request->max);
+        $alert->downtime = intval($request->downtime);
         $alert->param_id = $request->param;
         $alert->save();
 

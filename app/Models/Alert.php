@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alert extends Model
 {
-    protected $fillable = ['name', 'team_id', 'ref_id', 'param_id', 'min', 'max', 'enabled'];
+    protected $fillable = ['name', 'team_id', 'ref_id', 'param_id', 'min', 'max', 'downtime', 'enabled'];
 
     /**
      * The Team that the Alert belongs to

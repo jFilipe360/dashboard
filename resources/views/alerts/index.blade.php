@@ -22,6 +22,7 @@
                                         <th>Parâmetro</th>
                                         <th>Min</th>
                                         <th>Max</th>
+                                        <th>Downtime</th>
                                         <th>Ativo</th>
                                         <th>Opções</th>
                                     </tr>
@@ -36,6 +37,7 @@
                                                 <td>{{$alert->param->param}}</td>
                                                 <td>{{$alert->min}}</td>
                                                 <td>{{$alert->max}}</td>
+                                                <td>{{$alert->downtime}}</td>
                                                 <td>
                                                 @if($alert->enabled)
                                                     <span class="badge badge-success">Sim</span> 

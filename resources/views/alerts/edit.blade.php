@@ -20,7 +20,7 @@
                                     @endif
                                 </div>
                                 <div class="row"> 
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         <div class="form-group{{ $errors->has('param') ? ' has-error' : '' }}">
                                             <label for="param">Parâmetro</label>
                                             <select class="form-control" id="param" name="param" required>
@@ -53,6 +53,15 @@
                                             @endif
                                         </div>
                                     </div>
+                                    <div class="col-2">
+                                        <div class="form-group{{ $errors->has('downtime') ? ' has-error' : '' }}">
+                                            <label for="downtime">Downtime(minutos)</label>
+                                            <input type="text" value="{{$alert->downtime}}" class="form-control" id="downtime" name="downtime" placeholder="Downtime">
+                                            @if ($errors->has('downtime'))
+                                                <p class="text-danger">{{ $errors->first('downtime') }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row"> 
                                     <div class="col-6">
@@ -66,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <small id="emailHelp" class="form-text text-muted">Os valores podem ter até duas casas decimais</small>
+                                        <small id="emailHelp" class="form-text text-muted">Os valores mínimos e máximos podem ter até duas casas decimais</small>
                                     </div>
                                 </div>
                             </div>

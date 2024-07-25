@@ -46,7 +46,7 @@ class CheckAlerts extends Command
         $alerts = Alert::where('enabled', true)->get();
 
         // actual time minus 5 minutes
-        $alertTime = strtotime('-5 minutes');
+        $alertTime = strtotime('-1 minutes');
 
         // iterate alterts
         foreach($alerts as $alert)
@@ -56,6 +56,7 @@ class CheckAlerts extends Command
             $alertTime = intval($alertTime);
             $min = floatval($alert->min);
             $max = floatval($alert->max);
+            $downtime = floatval($alert->downtime);
 
             // select all the data from param in the time
             $data = Data::where('teamid', $teamid)
@@ -70,16 +71,43 @@ class CheckAlerts extends Command
 
             $alertc = $totalc - $data->count();
 
-            // check if there are alerts -> when the var is != 0
-            if($alertc != 0)
+            //get timestamp of last Data entry in Unix Format
+            $lastItem = Data::orderBy('timestamp', 'desc')->take(1)->value('timestamp');
+
+            //unix time since the entry happened
+            //get current time
+            $curTime = time();
+            $entryTime  = $curTime - $lastItem;
+
+            //transform entryTime from seconds to minutes
+            $entryTimeMinutes = floor($entryTime/60);
+
+            //check if last entry time is bigger than the downtime
+            if ($entryTimeMinutes > $downtime)
             {
-                $this->info($alertc.' Found alerts on sensor '.$alert->ref->ref.' - '.$alert->param->param.', sending emails to the team '.$alert->team->name);
+                //disable the alert
+                $alert->enabled = 0;
+                $alert->save();
+                $this->info(' Warning - Sensor possibly offline for ' .$entryTimeMinutes. ' minutes! Sending emails to the team '.$alert->team->name. ' This alert will be turned off!');
                 // iterate the users of the team
+                /* foreach($alert->team->users as $user)
+                {
+                    Notification::route('mail', $user->email)->notify(new AlertNotification($user->name, $alert->team->name, $alert->ref->ref, $alert->param->param, $alertc));
+                } */
+            }
+            // check if there are alerts -> when the var is != 0
+            elseif ($alertc != 0)
+            {
+                $this->info('Warning - Unusual value! Found '. $alertc.' alerts during the last minute, on sensor '.$alert->ref->ref.' - '.$alert->param->param.', sending emails to the team '.$alert->team->name);
+                // iterate the users of the team
+                /*
                 foreach($alert->team->users as $user)
                 {
                     Notification::route('mail', $user->email)->notify(new AlertNotification($user->name, $alert->team->name, $alert->ref->ref, $alert->param->param, $alertc));
-                }
-            } else {
+                }*/
+            } 
+            else 
+            {
                 $this->info('No alerts found');
             }
         }

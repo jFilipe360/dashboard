@@ -65,6 +65,7 @@ class AlertController extends Controller
             'name' => 'required|string|min:3|max:60',
             'min' => 'required|numeric|different:max',
             'max' => 'required|numeric|gt:min',
+            'downtime' => 'required|integer|max:1440',
             'param' => 'required|integer',
             'enabled' => 'nullable|boolean'
         ]);
@@ -75,6 +76,7 @@ class AlertController extends Controller
         $alert->name = $request->name;
         $alert->min = floatval($request->min);
         $alert->max = floatval($request->max);
+        $alert->downtime = intval($request->downtime);
         $alert->param_id = $request->param;
 
         // check if it has enabled tag
@@ -174,6 +176,7 @@ class AlertController extends Controller
             'name' => 'required|string|min:3|max:60',
             'min' => 'required|numeric|different:max',
             'max' => 'required|numeric|gt:min',
+            'downtime' => 'required|integer|max:1440',
             'param' => 'required|integer',
             'enabled' => 'nullable|nullable'
         ]);
@@ -189,6 +192,7 @@ class AlertController extends Controller
             'param_id' => $request->param,
             'min' => $request->min,
             'max' => $request->max,
+            'downtime' => $request->downtime,
             'enabled' => $enabled
         ]);
 

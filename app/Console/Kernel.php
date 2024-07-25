@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('alerts:check')->everyFiveMinutes();
+        //$schedule->command('alerts:check')->everyFiveMinutes();
+        $schedule->command('alerts:check')->everyMinute()->sendOutputTo('log.txt');
     }
 
     /**

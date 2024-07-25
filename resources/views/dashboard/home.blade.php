@@ -107,6 +107,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-secondary">
+                        <div class="inner">
+                            <h3>Update Interval</h3>
+                            <p>Update Sensor Interval</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <a href="{{ route('show-interval-form') }}" class="small-box-footer">Update Interval <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3>Update Flow Rate</h3>
+                            <p>Update Flow Rate</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <a href="{{ route('show-flow-form') }}" class="small-box-footer">Update Flow <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
